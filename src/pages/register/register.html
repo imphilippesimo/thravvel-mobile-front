@@ -1,0 +1,39 @@
+<ion-content class="register-content" padding>
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="http://placehold.it/300x200"/>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+  <div class="signup-box">
+    <form  #loginForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-input type="tel" placeholder="Téléphone" name="phoneNumber" [(ngModel)]="loginCredentials.phoneNumber" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="loginCredentials.password" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="password" placeholder="Mot de passe" name="repeatedPassword" [(ngModel)]="loginCredentials.password" required></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
+          <button ion-button class="alt-btn" block clear (click)="createAccount()">Create New Account</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </div>
+</ion-content>

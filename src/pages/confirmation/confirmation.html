@@ -1,0 +1,22 @@
+
+<ion-header>
+  <ion-navbar color="navbarColor">
+    <ion-title>Confirmer le compte</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="confirmation-content" padding>
+  <form #confirmationForm="ngForm">
+    <ion-list inset>
+      <ion-item>
+        <ion-input type="text" placeholder="code" name="confirmationCode" [(ngModel)]="loginCredentials.confirmationCode" required></ion-input>
+      </ion-item>
+    </ion-list>
+
+
+      <button ion-button class="submit-btn" full (click)="confirm()" [disabled]="!confirmationForm.form.valid" >confirmer</button>
+      <button ion-button  class="alt-btn" block clear (click)="resendCode()">Redemander le code</button>
+
+  </form>
+
+</ion-content>
