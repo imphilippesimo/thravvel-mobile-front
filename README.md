@@ -38,7 +38,7 @@ but as soon as a developer working under a Windows OS will join the team, this p
   generate an ionic project first  with the name `thravvel-mobile-front` to get them locally, to do so, follow these steps:
   
  > cd into your working local directory: `cd thravvelProjects` for example,
-  then create the project inside:  `ionic start thravvel-mobile-front blank`    
+  then create the project inside:  `ionic start thravvel-mobile-front blank --v2`    
   This will generate an ionic starter project and download the needed libraries,plugins and node modules.
   
  > Now we have to update that project with the remote repository one, but as git does not allow cloning within a non-empty directory,
