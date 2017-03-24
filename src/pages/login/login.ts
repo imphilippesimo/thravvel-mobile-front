@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController, AlertController, LoadingController, Loading} from 'ionic-angular';
+import {NavController, AlertController, LoadingController, PopoverController,Loading} from 'ionic-angular';
 import {AuthService, User} from '../../providers/auth-service';
 import {RegisterPage} from '../register/register';
 import {HomePage} from '../home/home';
-import { PopoverController } from 'ionic-angular';
+
 import {ConfirmationPage} from '../confirmation/confirmation';
 //import { ValidationResult } from '../shared/interfaces';
 
@@ -60,7 +60,9 @@ export class LoginPage {
   }
 
   presentConfirmationPopover() {
-    let popover = this.popoverCtrl.create(ConfirmationPage);
+    let popover = this.popoverCtrl.create(ConfirmationPage,{},{
+     enableBackdropDismiss: false,
+    });
     popover.present();
   }
 

@@ -1,7 +1,17 @@
 page-confirmation {
 
+
+  .toolbar-title {
+    .subtitle {
+      font-size: 66% ;
+      margin: 0;
+    }
+  }
+
   .confirmation-content {
     background: #773982;
+
+
 
 
     ion-item {
@@ -13,8 +23,6 @@ page-confirmation {
       border-bottom: 0px !important;
       box-shadow: none !important;
     }
-
-
 
     .item-inner {
       border-bottom-color: #ffffff !important;

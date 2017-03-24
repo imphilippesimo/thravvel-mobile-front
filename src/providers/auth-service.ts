@@ -27,10 +27,12 @@ export class AuthService {
   currentUser: User;
   users: User[];
   //TODO: get the host and the port variables from a global scope method because they can change at any time
-   connectUserAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/connect';
-  confirmUserAccountAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/confirm';
-  //connectUserAlias = 'http://localhost:8080/thravvel-core/rest/users/connect';
-  //confirmUserAccountAlias = 'http://localhost:8080/thravvel-core/rest/users/confirm';
+ //  connectUserAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/connect';
+  //saveUserAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/save';
+ // confirmUserAccountAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/confirm';
+ connectUserAlias = 'http://localhost:8080/thravvel-core/rest/users/connect';
+  confirmUserAccountAlias = 'http://localhost:8080/thravvel-core/rest/users/confirm';
+  saveUserAlias = 'http://localhost:8080/thravvel-core/rest/users/save';
 
 
   constructor(public http: Http) {
@@ -43,6 +45,20 @@ export class AuthService {
       return Observable.throw("Please insert credentials");
     } else {
       return this.http.post(this.connectUserAlias,credentials,{
+        withCredentials:true
+      })
+        .map(this.handleResponse)
+        .catch(this.handleError);
+
+    }
+  }
+
+  public signup(credentials): Observable<any> {
+
+    if (credentials.phoneNumber === '' || credentials.password === ''|| credentials.gender === '') {
+      return Observable.throw("Please insert all credentials");
+    } else {
+      return this.http.post(this.saveUserAlias,credentials,{
         withCredentials:true
       })
         .map(this.handleResponse)
