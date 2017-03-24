@@ -13,7 +13,7 @@ export class HomePage {
 	tab1Root: any = StationListPage;
 	tab2Root: any = StationMapPage ;
   	
-  constructor(public navCtrl: NavController) {
+constructor(public navCtrl: NavController) {
     
   }
 

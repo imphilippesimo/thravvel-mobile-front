@@ -26,7 +26,7 @@ import { Connectivity } from '../providers/connectivity';
     LoginPage,
     RegisterPage,
     ConfirmationPage,
-    StationListPage,
+   StationListPage,
     StationMapPage,
 
   ],
@@ -41,6 +41,7 @@ import { Connectivity } from '../providers/connectivity';
     StationMapPage,
 
   ],
-  providers: [AuthService, Locations, GoogleMaps, Connectivity]
+  providers: [AuthService, Locations, GoogleMaps, Connectivity],
+
 })
 export class AppModule {}
