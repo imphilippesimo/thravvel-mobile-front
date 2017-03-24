@@ -1,26 +1,35 @@
-<ion-content class="register-content" padding>
-  <ion-row class="logo-row">
-    <ion-col></ion-col>
-    <ion-col width-67>
-      <img src="http://placehold.it/300x200"/>
-    </ion-col>
-    <ion-col></ion-col>
-  </ion-row>
+<ion-header>
+  <ion-navbar color='navbarColor'>
+    <ion-title>
+      Enregistrement
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="signup-content" padding>
   <div class="signup-box">
-    <form  #loginForm="ngForm">
+    <form  #signupForm="ngForm">
       <ion-row>
         <ion-col>
           <ion-list inset>
 
             <ion-item>
-              <ion-input type="tel" placeholder="Téléphone" name="phoneNumber" [(ngModel)]="loginCredentials.phoneNumber" required></ion-input>
+              <ion-input type="tel" placeholder="Téléphone" name="phoneNumber" [(ngModel)]="signupCredentials.phoneNumber" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Gender</ion-label>
+              <ion-select name="gender" [(ngModel)]="signupCredentials.gender">
+                <ion-option value="M">Mâle</ion-option>
+                <ion-option value="F">Femelle</ion-option>
+              </ion-select>
             </ion-item>
 
             <ion-item>
-              <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="loginCredentials.password" required></ion-input>
+              <ion-input type="password" placeholder="Mot de passe" name="password" [(ngModel)]="signupCredentials.password" required></ion-input>
             </ion-item>
+
             <ion-item>
-              <ion-input type="password" placeholder="Mot de passe" name="repeatedPassword" [(ngModel)]="loginCredentials.password" required></ion-input>
+              <ion-input type="password" placeholder="Mot de passe" name="repeatedPassword" [(ngModel)]="signupCredentials.password" required></ion-input>
             </ion-item>
 
           </ion-list>
@@ -29,8 +38,7 @@
 
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
-          <button ion-button class="alt-btn" block clear (click)="createAccount()">Create New Account</button>
+          <button ion-button class="submit-btn" full (click)="signup()" [disabled]="!signupForm.form.valid">Enregistrer</button>
         </ion-col>
       </ion-row>
 

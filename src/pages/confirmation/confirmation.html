@@ -1,9 +1,13 @@
 
-<ion-header>
-  <ion-navbar color="navbarColor">
-    <ion-title>Confirmer le compte</ion-title>
-  </ion-navbar>
-</ion-header>
+<!--<ion-header>-->
+  <!--<ion-navbar color="navbarColor">-->
+    <!--<ion-title>-->
+      <!--Confirmer le compte-->
+      <!--<p class="subtitle">ou redemandez le code!</p>-->
+    <!--</ion-title>-->
+  <!--</ion-navbar>-->
+
+<!--</ion-header>-->
 
 <ion-content class="confirmation-content" padding>
   <form #confirmationForm="ngForm">
@@ -15,8 +19,11 @@
 
 
       <button ion-button class="submit-btn" full (click)="confirm()" [disabled]="!confirmationForm.form.valid" >confirmer</button>
-      <button ion-button  class="alt-btn" block clear (click)="resendCode()">Redemander le code</button>
+
 
   </form>
+  <button ion-button  class="alt-btn" block clear (click)="resendCode()">Redemander le code</button>
 
 </ion-content>
+
+
