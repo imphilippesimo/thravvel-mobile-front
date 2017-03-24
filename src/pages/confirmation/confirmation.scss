@@ -1,0 +1,35 @@
+page-confirmation {
+
+  .confirmation-content {
+    background: #773982;
+
+
+    ion-item {
+      border-radius: 30px !important;
+      padding-left: 30px !important;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+      border: 1px ;
+      border-bottom: 0px !important;
+      box-shadow: none !important;
+    }
+
+
+
+    .item-inner {
+      border-bottom-color: #ffffff !important;
+      box-shadow: none !important;
+    }
+
+    .submit-btn {
+      background: #b887c1;
+      border-radius: 30px !important;
+      border: 1px solid #ffffff;
+    }
+
+    .alt-btn {
+      color: #ffffff;
+      font-size: 0.8em;
+    }
+  }
+}
