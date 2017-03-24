@@ -6,5 +6,5 @@ platforms/
 plugins/
 res/
 resources/
-www/lib/
+www/
 !www/img/
