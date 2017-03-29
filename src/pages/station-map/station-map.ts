@@ -45,7 +45,7 @@ export class StationMapPage {
                 mapLoaded,
                 locationsLoaded
             ]).then((result) => {
- 
+ 				console.log("get by services",result);
                 let locations = result[1];
  
                 for(let location of locations){
