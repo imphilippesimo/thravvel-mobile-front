@@ -27,12 +27,14 @@ export class AuthService {
   currentUser: User;
   users: User[];
   //TODO: get the host and the port variables from a global scope method because they can change at any time
-   connectUserAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/connect';
-  saveUserAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/save';
-  confirmUserAccountAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/confirm';
- // connectUserAlias = 'http://localhost:8080/thravvel-core/rest/users/connect';
- //  confirmUserAccountAlias = 'http://localhost:8080/thravvel-core/rest/users/confirm';
- //  saveUserAlias = 'http://localhost:8080/thravvel-core/rest/users/save';
+  // connectUserAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/connect';
+  //saveUserAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/save';
+  //confirmUserAccountAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/confirm';
+  //isConfirmedAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/users/isConfirmed';
+  connectUserAlias = 'http://localhost:8080/thravvel-core/rest/users/connect';
+  confirmUserAccountAlias = 'http://localhost:8080/thravvel-core/rest/users/confirm';
+  isConfirmedAlias = 'http://localhost:8080/thravvel-core/rest/users/isConfirmed';
+  saveUserAlias = 'http://localhost:8080/thravvel-core/rest/users/save';
 
 
   constructor(public http: Http) {
@@ -44,8 +46,8 @@ export class AuthService {
     if (credentials.phoneNumber === '' || credentials.password === '') {
       return Observable.throw("Please insert credentials");
     } else {
-      return this.http.post(this.connectUserAlias,credentials,{
-        withCredentials:true
+      return this.http.post(this.connectUserAlias, credentials, {
+        withCredentials: true
       })
         .map(this.handleResponse)
         .catch(this.handleError);
@@ -55,11 +57,11 @@ export class AuthService {
 
   public signup(credentials): Observable<any> {
 
-    if (credentials.phoneNumber === '' || credentials.password === ''|| credentials.gender === '') {
+    if (credentials.phoneNumber === '' || credentials.password === '' || credentials.gender === '') {
       return Observable.throw("Please insert all credentials");
     } else {
-      return this.http.post(this.saveUserAlias,credentials,{
-        withCredentials:true
+      return this.http.post(this.saveUserAlias, credentials, {
+        withCredentials: true
       })
         .map(this.handleResponse)
         .catch(this.handleError);
@@ -69,16 +71,27 @@ export class AuthService {
 
   public confirm(credentials): Observable<any> {
 
-    if (credentials.confirmationCode === '' ) {
+    if (credentials.confirmationCode === '') {
       return Observable.throw("Please insert confirmation code");
     } else {
-      return this.http.post(this. confirmUserAccountAlias,credentials.confirmationCode,{
-        withCredentials:true
+      return this.http.post(this.confirmUserAccountAlias, credentials.confirmationCode, {
+        withCredentials: true
       })
         .map(this.handleResponse)
         .catch(this.handleError);
 
     }
+  }
+
+  public isUserConfirmed(): Observable<any> {
+
+    return this.http.get(this.isConfirmedAlias, {
+      withCredentials: true
+    })
+      .map(this.handleResponse)
+      .catch(this.handleError);
+
+
   }
 
   private handleResponse(res: Response) {

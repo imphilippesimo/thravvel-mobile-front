@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, AlertController, LoadingController, PopoverController,Loading} from 'ionic-angular';
+import {NavController, AlertController, LoadingController, PopoverController, Loading} from 'ionic-angular';
 import {AuthService, User} from '../../providers/auth-service';
 import {RegisterPage} from '../register/register';
 import {HomePage} from '../home/home';
@@ -15,6 +15,7 @@ import {ConfirmationPage} from '../confirmation/confirmation';
 export class LoginPage {
   loading: Loading;
   loginCredentials = {phoneNumber: '', password: ''};
+  //result: boolean;
 
 
   constructor(public popoverCtrl: PopoverController, private nav: NavController, private auth: AuthService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
@@ -35,17 +36,19 @@ export class LoginPage {
             if (retrievedData.success) {
               //userData contains all retrieved user properties
               let userData = retrievedData.payload;
-               if(!userData.confirmed) {
-                 console.log('user account not yet confirmed');
-                 this.presentConfirmationPopover();
-               }else {
-                 console.log('Already confirmed user account!!!!');
-                 //set the currentUser
-                 this.auth.currentUser = new User(userData.phoneNumber, userData.gender);
-                 //add the current user to the list of authenticated users
-                 //this.auth.users.push(this.auth.currentUser);
-                 this.nav.setRoot(HomePage);
-               }
+              this.checkUserConfirmed(userData);
+              // if (!this.result) {
+              //   console.log('user account not yet confirmed');
+              //   this.presentConfirmationPopover();
+              //
+              // } else {
+              //   console.log('Already confirmed user account!!!!');
+              //   //set the currentUser
+              //   this.auth.currentUser = new User(userData.phoneNumber, userData.gender);
+              //   //add the current user to the list of authenticated users
+              //   //this.auth.users.push(this.auth.currentUser);
+              //   this.nav.setRoot(HomePage);
+              // }
             } else {
               this.showError(retrievedData.message);
             }
@@ -60,8 +63,8 @@ export class LoginPage {
   }
 
   presentConfirmationPopover() {
-    let popover = this.popoverCtrl.create(ConfirmationPage,{},{
-     enableBackdropDismiss: false,
+    let popover = this.popoverCtrl.create(ConfirmationPage, {}, {
+      enableBackdropDismiss: false,
     });
     popover.present();
   }
@@ -85,5 +88,38 @@ export class LoginPage {
       buttons: ['OK']
     });
     alert.present(prompt);
+  }
+
+  checkUserConfirmed(userData) {
+    //let result: boolean = false;
+    this.auth.isUserConfirmed().subscribe(
+      retrievedData => {
+
+          //if no errors from the server
+          if (retrievedData.success) {
+            //if the confirmed flag is true
+            if (!retrievedData.payload) {
+              console.log('user account not yet confirmed');
+              this.presentConfirmationPopover();
+              //this.result = true;
+              //console.log("i" + result);
+            } else {
+              //this.result = false;
+              console.log('Already confirmed user account!!!!');
+              //set the currentUser
+              this.auth.currentUser = new User(userData.phoneNumber, userData.gender);
+              //add the current user to the list of authenticated users
+              //this.auth.users.push(this.auth.currentUser);
+              this.nav.setRoot(HomePage);
+            }
+          } else {
+            this.showError(retrievedData.message);
+          }
+      },
+      error => {
+        this.showError(error);
+      });
+    //console.log("o" + result);
+    //return result;
   }
 }

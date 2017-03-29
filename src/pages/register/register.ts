@@ -34,6 +34,7 @@ export class RegisterPage {
             if (retrievedData.success) {
               //userData contains all retrieved user properties
               //let userData = retrievedData.payload;
+              //this.sendConfirmationSms(userData.confirmationCode);
 
                 console.log('user account not yet confirmed');
                 this.presentConfirmationPopover();
@@ -77,5 +78,9 @@ export class RegisterPage {
     });
     alert.present(prompt);
   }
+
+  // sendConfirmationSms(code){
+  //
+  // }
 
 }

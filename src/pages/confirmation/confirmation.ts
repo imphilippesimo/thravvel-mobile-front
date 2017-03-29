@@ -57,7 +57,7 @@ export class ConfirmationPage {
       });
   }
 
-  //TODO: set methods that pages haave in common (such as showLoading,showError...) in a common service
+  //TODO: set methods that pages have in common (such as showLoading,showError...) in a common service
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Patientez...'
