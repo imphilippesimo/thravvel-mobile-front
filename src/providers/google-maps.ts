@@ -17,6 +17,7 @@ export class GoogleMaps {
   mapLoadedObserver: any;
   markers: any = [];
   apiKey: string;
+  center: any;
  
   constructor(public connectivityService: Connectivity) {
  
@@ -29,6 +30,11 @@ export class GoogleMaps {
  
     return this.loadGoogleMaps();
  
+  }
+
+  getCenter(){
+        console.log("LE CENTRE A RETOURNER", this.center);
+        return this.center;
   }
  
   loadGoogleMaps(): Promise<any> {
@@ -90,10 +96,9 @@ export class GoogleMaps {
  
       Geolocation.getCurrentPosition().then((position) => {
  
-        // UNCOMMENT FOR NORMAL USE
+        this.center = position;
+        console.log("CENTRE CALCULE", this.center);
         let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
- 
-        //let latLng = new google.maps.LatLng(40.713744, -74.009056);
  
         let mapOptions = {
           center: latLng,
@@ -105,7 +110,7 @@ export class GoogleMaps {
         resolve(true);
  
       });
- 
+      console.log("CENTRE CALCULE22222222", this.center);
     });
  
   }
@@ -168,8 +173,23 @@ export class GoogleMaps {
       animation: google.maps.Animation.DROP,
       position: latLng
     });
- 
+
+    let content = "<h4>Information!</h4>";          
+    this.addInfoWindow(marker, content);
     this.markers.push(marker);  
+ 
+  }
+
+
+  addInfoWindow(marker, content){
+ 
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+ 
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
  
   }
  

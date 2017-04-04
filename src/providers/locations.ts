@@ -36,9 +36,9 @@ export class Locations {
  
     }
  
-    load(){
+    load(center){
 
-
+        console.log("Mon centre envoie:", center);
     	this.coordinates  = {latitude:-4.3275315, longitude:15.341580799999974, distance: 20, limite: 4};
  
         if(this.data){
