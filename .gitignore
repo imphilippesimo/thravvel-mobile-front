@@ -7,9 +7,12 @@ plugins/
 res/
 hooks/
 resources/
+.editorconfig
+.idea/
 config.xml
 ionic.config.json
 tsconfig.json
 tslint.json
-www/
+
+www/*
 !www/img/
