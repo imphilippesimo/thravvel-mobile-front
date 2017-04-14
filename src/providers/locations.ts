@@ -29,16 +29,16 @@ export class Coordinates {
 export class Locations {
 
  data: any;
- connectStationsAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/stations';
+ connectStationsAlias = 'http://ec2-52-89-54-132.us-west-2.compute.amazonaws.com:8080/thravvel-core/rest/stations/nearest';
  coordinates: Coordinates;
  
     constructor(public http: Http) {
  
     }
  
-    load(){
+    load(center){
 
-
+        console.log("Mon centre envoie:", center);
     	this.coordinates  = {latitude:-4.3275315, longitude:15.341580799999974, distance: 20, limite: 4};
  
         if(this.data){
@@ -47,7 +47,7 @@ export class Locations {
  
         return new Promise(resolve => {
  
-            this.http.get(this.connectStationsAlias).map(res => res.json()).subscribe(data => {
+            this.http.post(this.connectStationsAlias,this.coordinates).map(res => res.json()).subscribe(data => {
             	console.log(data);
  				this.data = data.payload.content;
                 resolve(this.data);

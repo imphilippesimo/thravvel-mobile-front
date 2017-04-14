@@ -39,13 +39,16 @@ export class StationMapPage {
         this.platform.ready().then(() => {
  
             let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-            let locationsLoaded = this.locations.load();
+            console.log("NO IDEAAAA",mapLoaded);
+            let center = this.maps.getCenter();
+            console.log("centerrrrr",center);
+            let locationsLoaded = this.locations.load(center);
  
             Promise.all([
                 mapLoaded,
                 locationsLoaded
             ]).then((result) => {
- 
+ 				console.log("get by services",result);
                 let locations = result[1];
  
                 for(let location of locations){

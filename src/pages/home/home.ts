@@ -23,7 +23,7 @@ export class HomePage {
 
     this.bookingTab = BookingPage;
     this.chatsTab = ChatsPage;
-    this.mapsTab = MapsPage;
+    this.mapsTab = StationMapPage;
     this.meteoTab = MeteoPage;
   }
 
