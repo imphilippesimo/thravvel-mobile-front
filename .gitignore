@@ -7,5 +7,9 @@ plugins/
 res/
 hooks/
 resources/
+config.xml
+ionic.config.json
+tsconfig.json
+tslint.json
 www/
 !www/img/
