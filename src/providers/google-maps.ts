@@ -33,7 +33,6 @@ export class GoogleMaps {
   }
 
   getCenter(){
-        console.log("LE CENTRE A RETOURNER", this.center);
         return this.center;
   }
  
@@ -50,8 +49,8 @@ export class GoogleMaps {
  
           window['mapInit'] = () => {
  
-            this.initMap().then(() => {
-              resolve(true);
+            this.initMap().then((data) => {
+              resolve(data);
             });
  
             this.enableMap();
@@ -73,7 +72,9 @@ export class GoogleMaps {
       else {
  
         if(this.connectivityService.isOnline()){
-          this.initMap();
+          this.initMap().then(function(data){
+              this.center = data;
+          });
           this.enableMap();
         }
         else {
@@ -97,7 +98,6 @@ export class GoogleMaps {
       Geolocation.getCurrentPosition().then((position) => {
  
         this.center = position;
-        console.log("CENTRE CALCULE", this.center);
         let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
  
         let mapOptions = {
@@ -107,10 +107,10 @@ export class GoogleMaps {
         }
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
-        resolve(true);
+        resolve(position);
+        return position;
  
       });
-      console.log("CENTRE CALCULE22222222", this.center);
     });
  
   }
@@ -164,7 +164,7 @@ export class GoogleMaps {
  
   }
  
-  addMarker(lat: number, lng: number): void {
+  addMarker(lat: number, lng: number, name: string): void {
  
     let latLng = new google.maps.LatLng(lat, lng);
  
@@ -173,8 +173,7 @@ export class GoogleMaps {
       animation: google.maps.Animation.DROP,
       position: latLng
     });
-
-    let content = "<h4>Information!</h4>";          
+   let content = "<h4>"+ "Agence : " + name +"</h4>";          
     this.addInfoWindow(marker, content);
     this.markers.push(marker);  
  

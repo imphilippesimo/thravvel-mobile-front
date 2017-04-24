@@ -37,26 +37,22 @@ export class StationMapPage {
   ionViewDidLoad(){
  
         this.platform.ready().then(() => {
- 
-            let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-            console.log("NO IDEAAAA",mapLoaded);
-            let center = this.maps.getCenter();
-            console.log("centerrrrr",center);
-            let locationsLoaded = this.locations.load(center);
- 
-            Promise.all([
+            let locationsLoaded;
+            let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement).then( (data) =>  {
+            locationsLoaded = this.locations.load(data);
+
+             Promise.all([
                 mapLoaded,
                 locationsLoaded
             ]).then((result) => {
- 				console.log("get by services",result);
                 let locations = result[1];
- 
                 for(let location of locations){
-                    this.maps.addMarker(location.latitude, location.longitude);
+                    this.maps.addMarker(location.latitude, location.longitude, location.name);
                 }
  
             });
- 
+               
+            });
         });
  
     }

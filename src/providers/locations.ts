@@ -39,7 +39,7 @@ export class Locations {
     load(center){
 
         console.log("Mon centre envoie:", center);
-    	this.coordinates  = {latitude:-4.3275315, longitude:15.341580799999974, distance: 20, limite: 4};
+        this.coordinates  = {latitude:center.coords.latitude, longitude:center.coords.longitude, distance: 20, limite: 4};
  
         if(this.data){
             return Promise.resolve(this.data);
@@ -48,7 +48,6 @@ export class Locations {
         return new Promise(resolve => {
  
             this.http.post(this.connectStationsAlias,this.coordinates).map(res => res.json()).subscribe(data => {
-            	console.log(data);
  				this.data = data.payload.content;
                 resolve(this.data);
  
