@@ -5,6 +5,14 @@ node_modules/
 platforms/
 plugins/
 res/
+hooks/
 resources/
-www/
+.editorconfig
+.idea/
+config.xml
+ionic.config.json
+tsconfig.json
+tslint.json
+
+www/*
 !www/img/
