@@ -47,6 +47,6 @@ but as soon as a developer working under a Windows OS will join the team, this p
   `cp -ru thravvel-mobile-front ../thravvel-mobile-front`
   
  > You can now remove the temp dir: `cd .. ; rm -r temp`
-  
+  Run `npm install` to get the needed dependencies,
   Now you are good to go :-)
 
