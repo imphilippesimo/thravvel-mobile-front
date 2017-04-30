@@ -21,18 +21,10 @@ export class StationMapPage {
   constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public locations: Locations) {
  
   }
- 
- /*
-  ionViewDidLoad(){
- 
-    this.platform.ready().then(() => {
- 
-        let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
- 
-    });
- 
+
+  toto(){
+    console.log("TOOOOOOTTTTTOOOOOOOO");
   }
-  */
 
   ionViewDidLoad(){
  

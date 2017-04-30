@@ -3,6 +3,8 @@ import { Connectivity } from './connectivity';
 import { Geolocation } from 'ionic-native';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import {App} from 'ionic-angular';
+import {StationDetailPage} from '../pages/station-detail/station-detail';
 
 declare var google;
 
@@ -19,7 +21,7 @@ export class GoogleMaps {
   apiKey: string;
   center: any;
  
-  constructor(public connectivityService: Connectivity) {
+  constructor(public connectivityService: Connectivity, private app: App) {
  
   }
  
@@ -173,10 +175,14 @@ export class GoogleMaps {
       animation: google.maps.Animation.DROP,
       position: latLng
     });
-   let content = "<h4>"+ "Agence : " + name +"</h4>";          
+   let content = "<h4>"+ "Agence : " + name +"</h4>" +"</br>" + "<button ion-button (click) ="+ "toto()"+">"+"Link </button>";          
     this.addInfoWindow(marker, content);
     this.markers.push(marker);  
  
+  }
+
+  toto(){
+    console.log("TOOOOOOTTTTTOOOOOOOO 11111111");
   }
 
 
@@ -185,7 +191,13 @@ export class GoogleMaps {
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
- 
+/*
+    google.maps.event.addListener(marker, 'click', () => {
+      //infoWindow.open(this.map,{marker: marker} );
+      console.log("clicked");
+      this.app.getActiveNav().push(StationDetailPage,marker);
+    });
+ */
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
     });
