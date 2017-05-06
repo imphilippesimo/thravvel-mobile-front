@@ -16,6 +16,10 @@ import { StationMapPage } from '../pages/station-map/station-map';
 import { Locations } from '../providers/locations';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
+import { LocationTracker } from '../providers/location-tracker';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
+import { TrackingPage } from '../pages/tracking/tracking';
 
 @NgModule({
 
@@ -44,6 +48,7 @@ import { Connectivity } from '../providers/connectivity';
     ChatsPage,
     MapsPage,
     MeteoPage,
+    TrackingPage,
 
   ],
   bootstrap: [IonicApp],
@@ -59,10 +64,12 @@ import { Connectivity } from '../providers/connectivity';
     ChatsPage,
     MapsPage,
     MeteoPage,
+    TrackingPage,
 
 
   ],
-  providers: [AuthService, Locations, GoogleMaps, Connectivity],
+  providers: [AuthService, Locations, GoogleMaps, Connectivity, LocationTracker,BackgroundGeolocation,
+    Geolocation],
 
 })
 export class AppModule {}

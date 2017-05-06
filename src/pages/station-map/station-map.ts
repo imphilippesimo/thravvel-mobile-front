@@ -3,6 +3,8 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Locations } from '../../providers/locations';
 import { GoogleMaps } from '../../providers/google-maps';
 
+import { TrackingPage } from '../tracking/tracking';
+
 /*
   Generated class for the StationMap page.
 
@@ -11,7 +13,7 @@ import { GoogleMaps } from '../../providers/google-maps';
 */
 @Component({
   selector: 'page-station-map',
-  templateUrl: 'station-map.html'
+  templateUrl: 'station-map.html',
 })
 export class StationMapPage {
 
@@ -22,9 +24,15 @@ export class StationMapPage {
  
   }
 
+  goToTrackingPage(){
+      this.navCtrl.push(TrackingPage);
+  }
+
   toto(){
     console.log("TOOOOOOTTTTTOOOOOOOO");
   }
+
+ 
 
   ionViewDidLoad(){
  

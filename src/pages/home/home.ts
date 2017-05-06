@@ -26,7 +26,4 @@ export class HomePage {
     this.mapsTab = StationMapPage;
     this.meteoTab = MeteoPage;
   }
-
-
-
 }
