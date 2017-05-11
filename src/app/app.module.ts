@@ -16,6 +16,10 @@ import { StationMapPage } from '../pages/station-map/station-map';
 import { Locations } from '../providers/locations';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
+import { LocationTracker } from '../providers/location-tracker';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
+import { TrackingPage } from '../pages/tracking/tracking';
 
 // les modules de la meteo
 import {WeatherService} from '../providers/WeatherService';
@@ -49,7 +53,8 @@ import {ChartComponent} from '../components/ChartComponent';
     ChatsPage,
     MapsPage,
     MeteoPage,
-    ChartComponent
+    ChartComponent,
+    TrackingPage
 
   ],
   bootstrap: [IonicApp],
@@ -65,10 +70,12 @@ import {ChartComponent} from '../components/ChartComponent';
     ChatsPage,
     MapsPage,
     MeteoPage,
+    TrackingPage,
 
 
   ],
-  providers: [AuthService, Locations, GoogleMaps, Connectivity, WeatherService],
+  providers: [AuthService, Locations, GoogleMaps, Connectivity, LocationTracker,BackgroundGeolocation,
+    Geolocation, WeatherService],
 
 })
 export class AppModule {}

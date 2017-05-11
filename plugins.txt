@@ -1,0 +1,11 @@
+=========== GEOLOCATION ==================================
+- ionic plugin add cordova-plugin-geolocation
+
+- npm install --save @ionic-native/geolocation
+
+- ionic plugin add cordova-plugin-mauron85-background-geolocation
+
+- npm install --save @ionic-native/background-geolocation
+
+- npm install --save @ionic-native/core@3.6.0
+===========================================================
