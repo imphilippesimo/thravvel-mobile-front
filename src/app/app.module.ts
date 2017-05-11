@@ -17,6 +17,11 @@ import { Locations } from '../providers/locations';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
 
+// les modules de la meteo
+import {WeatherService} from '../providers/WeatherService';
+import {ChartComponent} from '../components/ChartComponent';
+// fin des modules de lameteo
+
 @NgModule({
 
   imports: [
@@ -44,6 +49,7 @@ import { Connectivity } from '../providers/connectivity';
     ChatsPage,
     MapsPage,
     MeteoPage,
+    ChartComponent
 
   ],
   bootstrap: [IonicApp],
@@ -62,7 +68,7 @@ import { Connectivity } from '../providers/connectivity';
 
 
   ],
-  providers: [AuthService, Locations, GoogleMaps, Connectivity],
+  providers: [AuthService, Locations, GoogleMaps, Connectivity, WeatherService],
 
 })
 export class AppModule {}
