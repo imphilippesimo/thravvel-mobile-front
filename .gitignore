@@ -9,10 +9,11 @@ hooks/
 resources/
 .editorconfig
 .idea/
+.vscode/
 config.xml
 ionic.config.json
 tsconfig.json
 tslint.json
+debug.log
+www/
 
-www/*
-!www/img/

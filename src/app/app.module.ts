@@ -21,6 +21,11 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation } from '@ionic-native/geolocation';
 import { TrackingPage } from '../pages/tracking/tracking';
 
+// les modules de la meteo
+import {WeatherService} from '../providers/WeatherService';
+import {ChartComponent} from '../components/ChartComponent';
+// fin des modules de lameteo
+
 @NgModule({
 
   imports: [
@@ -48,7 +53,8 @@ import { TrackingPage } from '../pages/tracking/tracking';
     ChatsPage,
     MapsPage,
     MeteoPage,
-    TrackingPage,
+    ChartComponent,
+    TrackingPage
 
   ],
   bootstrap: [IonicApp],
@@ -69,7 +75,7 @@ import { TrackingPage } from '../pages/tracking/tracking';
 
   ],
   providers: [AuthService, Locations, GoogleMaps, Connectivity, LocationTracker,BackgroundGeolocation,
-    Geolocation],
+    Geolocation, WeatherService],
 
 })
 export class AppModule {}
