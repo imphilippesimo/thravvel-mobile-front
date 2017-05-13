@@ -14,9 +14,17 @@
 
 
 <ion-content padding>
+  <div #map id="map"></div>
 <h3>Latitude: {{locationTracker.latitude}}</h3>
   <h3>Longitude: {{locationTracker.longitude}}</h3>
-  <button ion-button full primary (click)="start()">Démarrer le Tracking</button>
-  <button ion-button full primary (click)="stop()">Stopper le Tracking</button>
-
+  <div class="row"> 
+	<div class="col col-50">
+	      <button ion-button full color="secondary" (click)="start()">Startt</button> 
+    </div>
+    <div class="col col-50">
+          <button ion-button full color="danger" (click)="stop()">Stop</button>
+    </div>     
+   </div>
+  
+  <button ion-button block>Visualiser Trajet</button>
 </ion-content>
