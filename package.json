@@ -19,6 +19,10 @@
     "@angular/platform-browser": "2.2.1",
     "@angular/platform-browser-dynamic": "2.2.1",
     "@angular/platform-server": "2.2.1",
+    "@ionic-native/background-geolocation": "^3.6.1",
+    "@ionic-native/core": "^3.6.0",
+    "@ionic-native/geolocation": "^3.6.1",
+    "@ionic-native/google-maps": "^3.6.1",
     "@ionic/storage": "1.1.7",
     "ionic-angular": "2.1.0",
     "ionic-native": "2.4.1",
@@ -42,4 +46,3 @@
   "cordovaPlatforms": [],
   "description": "thravvel-mobile-front: An Ionic project"
 }
-
