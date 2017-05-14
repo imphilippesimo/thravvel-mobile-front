@@ -1,8 +1,9 @@
-import { Injectable, NgZone } from '@angular/core';
-import { Http } from '@angular/http';
+import {Injectable, NgZone} from '@angular/core';
+//import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { BackgroundGeolocation,BackgroundGeolocationConfig } from '@ionic-native/background-geolocation';
-import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import {BackgroundGeolocation, BackgroundGeolocationConfig} from '@ionic-native/background-geolocation';
+import {Geolocation, Geoposition} from '@ionic-native/geolocation';
+import {Database} from "../providers/database";
 import 'rxjs/add/operator/filter';
 
 /*
@@ -14,75 +15,89 @@ import 'rxjs/add/operator/filter';
 @Injectable()
 export class LocationTracker {
 
-	 constructor(public zone: NgZone,private backgroundGeolocation: BackgroundGeolocation,private geolocation: Geolocation) {
-    	console.log('Hello LocationTracker Provider');
-  	}
+  constructor(public zone : NgZone, private backgroundGeolocation : BackgroundGeolocation, private geolocation : Geolocation, public database : Database) {
+    console.log('Hello LocationTracker Provider');
+  }
 
-  	//const config: BackgroundGeolocationConfig = {};
-	public watch: any;    
-  	public latitude: number = 0;
-  	public longitude: number = 0;
+  //const config: BackgroundGeolocationConfig = {};
+  public watch : any;
+  public latitude : number = 0;
+  public longitude : number = 0;
 
-  	startTracking() {
-  	/* Background Tracking */
+  startTracking() {
+    /* Background Tracking */
 
     let config = {
       desiredAccuracy: 0,
       stationaryRadius: 20,
-      distanceFilter: 10, 
+      distanceFilter: 10,
       debug: true,
-      interval: 2000 
+      interval: 5000
     };
 
-    this.backgroundGeolocation.configure(config).subscribe((location) => {
+    this
+      .backgroundGeolocation
+      .configure(config)
+      .subscribe((location) => {
 
-      console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
+        console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
 
-      // Run update inside of Angular's zone
-      this.zone.run(() => {
-        this.latitude = location.latitude;
-        this.longitude = location.longitude;
+        // Run update inside of Angular's zone
+        this
+          .zone
+          .run(() => {
+            this.latitude = location.latitude;
+            this.longitude = location.longitude;
+          });
+
+      }, (err) => {
+
+        console.log(err);
+
       });
 
-    }, (err) => {
-
-      console.log(err);
-
-    });
-
     // Turn ON the background-geolocation system.
-    this.backgroundGeolocation.start();
-
+    this
+      .backgroundGeolocation
+      .start();
 
     // Foreground Tracking
 
-  let options = {
-    frequency: 3000, 
-    enableHighAccuracy: true
-  };
+    let options = {
+      frequency: 5000,
+      enableHighAccuracy: true
+    };
 
-  this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
+    this.watch = this
+      .geolocation
+      .watchPosition(options)
+      .filter((p : any) => p.code === undefined)
+      .subscribe((position : Geoposition) => {
 
-    console.log(position);
+        console.log(position);
+        this.database.insertLocation(position.coords.latitude,position.coords.longitude,new Date().getTime());
+        // Run update inside of Angular's zone
+        this
+          .zone
+          .run(() => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+          });
 
-    // Run update inside of Angular's zone
-    this.zone.run(() => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-    });
+      });
+  }
 
-  });
-  	}
+  stopTracking() {
 
-  	stopTracking() {
+    console.log('stopTracking');
 
-  		console.log('stopTracking');
+    this
+      .backgroundGeolocation
+      .finish();
+    this
+      .watch
+      .unsubscribe();
 
-    	this.backgroundGeolocation.finish();
-    	this.watch.unsubscribe();
-
-  	}
-
- 
+  }
 
 }

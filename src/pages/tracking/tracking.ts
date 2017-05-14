@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,Platform } from 'ionic-angular';
+import { NavController,Platform } from 'ionic-angular';
 import { LocationTracker } from '../../providers/location-tracker';
 import { Geolocation } from '@ionic-native/geolocation';
-import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
+import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
+import {Database} from "../../providers/database";
+//import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 
 /*
   Generated class for the Tracking page.
@@ -17,9 +19,10 @@ import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerO
 export class TrackingPage {
 
 	map: GoogleMap;
+  private locations: Array<Object>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public locationTracker: LocationTracker,private geolocation: Geolocation,public platform: Platform) {
-  	
+  constructor(public navCtrl: NavController,public locationTracker: LocationTracker,private geolocation: Geolocation,public platform: Platform, private database: Database) {
+  	this.locations = [];
   }
 
   ionViewDidLoad() {
@@ -37,12 +40,22 @@ export class TrackingPage {
     this.locationTracker.stopTracking();
   }
 
-  loadMap() {
-  this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
-    console.log(resp.coords.latitude+", "+resp.coords.longitude);
-    let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
+  getLocationHistory(){
+    this.database.getAllLocations().then((result) => {
+            this.locations = <Array<Object>> result;
+            console.log("locations",this.locations);
+        }, (error) => {
+            console.log("ERROR: ", error);
+        });
+  }
 
-    this.map = new GoogleMap('map', {
+  loadMap() {
+  this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 50000, enableHighAccuracy: true }).then((resp) => {
+    console.log(resp.coords.latitude+", "+resp.coords.longitude);
+    //let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
+    let location = new GoogleMapsLatLng(resp.coords.latitude, resp.coords.longitude);
+
+    this.map = new GoogleMap(document.getElementById('#map'), {
       'backgroundColor': 'white',
       'controls': {
         'compass': true,
@@ -66,6 +79,7 @@ export class TrackingPage {
 
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
       console.log('Map is ready!');
+      console.log("map : ",this.map );
     });
   }).catch((error) => {
     console.log('Error getting location', error);

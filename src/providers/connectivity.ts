@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Network } from 'ionic-native';
 import { Platform } from 'ionic-angular';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 
 
-declare var Connection;
+declare var Connection: any;
  
 @Injectable()
 export class Connectivity {
@@ -19,7 +18,7 @@ export class Connectivity {
  
   isOnline(): boolean {
     if(this.onDevice && Network.type){
-      return Network.type !== Connection.NONE;
+      return Network.type !== 'Connection.NONE';
     } else {
       return navigator.onLine; 
     }

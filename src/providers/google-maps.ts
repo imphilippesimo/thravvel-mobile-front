@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Connectivity } from './connectivity';
 import { Geolocation } from 'ionic-native';
-import { Http } from '@angular/http';
+//import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {App} from 'ionic-angular';
-import {StationDetailPage} from '../pages/station-detail/station-detail';
+//import {StationDetailPage} from '../pages/station-detail/station-detail';
 
 declare var google;
 

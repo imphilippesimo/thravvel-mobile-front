@@ -6,25 +6,25 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Tracking</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Tracking</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <div #map id="map"></div>
-<h3>Latitude: {{locationTracker.latitude}}</h3>
-  <h3>Longitude: {{locationTracker.longitude}}</h3>
-  <div class="row"> 
-	<div class="col col-50">
-	      <button ion-button full color="secondary" (click)="start()">Startt</button> 
+    <div #map id="map"></div>
+    <h3>Latitude: {{locationTracker.latitude}}</h3>
+    <h3>Longitude: {{locationTracker.longitude}}</h3>
+    <div class="row">
+        <div class="col col-50">
+            <button ion-button full color="secondary" (click)="start()">Start</button>
+        </div>
+        <div class="col col-50">
+            <button ion-button full color="danger" (click)="stop()">Stop</button>
+        </div>
     </div>
-    <div class="col col-50">
-          <button ion-button full color="danger" (click)="stop()">Stop</button>
-    </div>     
-   </div>
-  
-  <button ion-button block>Visualiser Trajet</button>
+
+    <button ion-button block (click)="getLocationHistory()">Visualiser Trajet</button>
 </ion-content>

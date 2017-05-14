@@ -8,10 +8,10 @@ import { RegisterPage } from '../pages/register/register';
 import {ConfirmationPage} from '../pages/confirmation/confirmation';
 import { BookingPage } from '../pages/booking/booking';
 import { ChatsPage } from '../pages/chats/chats';
-import { MapsPage } from '../pages/maps/maps';
+//import { MapsPage } from '../pages/maps/maps';
 import { MeteoPage } from '../pages/meteo/meteo';
 import { HttpModule, JsonpModule } from '@angular/http';
-import { StationListPage } from '../pages/station-list/station-list';
+//import { StationListPage } from '../pages/station-list/station-list';
 import { StationMapPage } from '../pages/station-map/station-map';
 import { Locations } from '../providers/locations';
 import { GoogleMaps } from '../providers/google-maps';
@@ -20,6 +20,7 @@ import { LocationTracker } from '../providers/location-tracker';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation } from '@ionic-native/geolocation';
 import { TrackingPage } from '../pages/tracking/tracking';
+import {Database} from "../providers/database";
 
 // les modules de la meteo
 import {WeatherService} from '../providers/WeatherService';
@@ -75,7 +76,7 @@ import {ChartComponent} from '../components/ChartComponent';
 
   ],
   providers: [AuthService, Locations, GoogleMaps, Connectivity, LocationTracker,BackgroundGeolocation,
-    Geolocation, WeatherService],
+    Geolocation, WeatherService,Database],
 
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { Locations } from '../../providers/locations';
 import { GoogleMaps } from '../../providers/google-maps';
 
@@ -27,12 +27,6 @@ export class StationMapPage {
   goToTrackingPage(){
       this.navCtrl.push(TrackingPage);
   }
-
-  toto(){
-    console.log("TOOOOOOTTTTTOOOOOOOO");
-  }
-
- 
 
   ionViewDidLoad(){
  
