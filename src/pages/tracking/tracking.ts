@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild  } from '@angular/core';
 import { NavController,Platform } from 'ionic-angular';
 import { LocationTracker } from '../../providers/location-tracker';
 import { Geolocation } from '@ionic-native/geolocation';
-import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
+//import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 import {Database} from "../../providers/database";
+import {
+ GoogleMaps,
+ GoogleMap,
+ GoogleMapsEvent,
+ LatLng,
+ CameraPosition,
+ MarkerOptions,
+ Marker
+} from '@ionic-native/google-maps';
 //import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 
 /*
@@ -21,7 +30,7 @@ export class TrackingPage {
 	map: GoogleMap;
   private locations: Array<Object>;
 
-  constructor(public navCtrl: NavController,public locationTracker: LocationTracker,private geolocation: Geolocation,public platform: Platform, private database: Database) {
+  constructor(private googleMaps: GoogleMaps,public navCtrl: NavController,public locationTracker: LocationTracker,private geolocation: Geolocation,public platform: Platform, private database: Database) {
   	this.locations = [];
   }
 
@@ -53,9 +62,11 @@ export class TrackingPage {
   this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 50000, enableHighAccuracy: true }).then((resp) => {
     console.log(resp.coords.latitude+", "+resp.coords.longitude);
     //let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
-    let location = new GoogleMapsLatLng(resp.coords.latitude, resp.coords.longitude);
+    let location = new LatLng(resp.coords.latitude, resp.coords.longitude);
+    let element: HTMLElement = document.getElementById('map');
 
-    this.map = new GoogleMap(document.getElementById('#map'), {
+   // this.map = 
+    this.map = this.googleMaps.create(element, {
       'backgroundColor': 'white',
       'controls': {
         'compass': true,
@@ -77,7 +88,7 @@ export class TrackingPage {
       }
     });
 
-    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       console.log('Map is ready!');
       console.log("map : ",this.map );
     });

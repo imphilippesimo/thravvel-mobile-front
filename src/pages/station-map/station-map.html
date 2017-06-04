@@ -16,19 +16,24 @@
 
 -->
 <ion-header>
-<ion-navbar >
-  <ion-title>Stations</ion-title>
-  <ion-buttons end >
-       <button ion-button primary (click)="goToTrackingPage()">
-         Tracking
-       </button>
-     </ion-buttons>
-</ion-navbar>
+    <ion-navbar>
+        <ion-title>Stations</ion-title>
+
+    </ion-navbar>
 </ion-header>
 <ion-content padding>
-	<div #pleaseConnect id="please-connect">
-    <p>Please connect to the Internet...</p>
-  </div>
- 
-  <div #map id="map"></div>
+    <div #pleaseConnect id="please-connect">
+        <p>Please connect to the Internet...</p>
+    </div>
+
+    <div #map id="map"></div>
+    <div class="row">
+        <div class="col col-50">
+            <button ion-button full color="secondary" class="map-button" (click)="start()">Start</button>
+        </div>
+        <div class="col col-50">
+            <button ion-button full color="danger" class="map-button" (click)="stop()">Stop</button>
+        </div>
+    </div>
+    <button ion-button block (click)="getLocationHistory()" class="map-button">Visualiser Trajet</button>
 </ion-content>

@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { Locations } from '../../providers/locations';
 import { GoogleMaps } from '../../providers/google-maps';
+import {Database} from "../../providers/database";
+import { LocationTracker } from '../../providers/location-tracker';
 
 import { TrackingPage } from '../tracking/tracking';
 
@@ -19,9 +21,32 @@ export class StationMapPage {
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
+  private locationsHist: any;
  
-  constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public locations: Locations) {
+  constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public locations: Locations,public locationTracker: LocationTracker,private database: Database) {
+  let rootPage = this;
+  this.locationsHist = [];
  
+  }
+
+   start(){
+    this.locationTracker.startTracking();
+  }
+ 
+  stop(){
+    this.locationTracker.stopTracking();
+  }
+
+  getLocationHistory(){
+    this.database.getAllLocations().then((result) => {
+            this.locationsHist =  result;
+            console.log("locations",this.locationsHist);
+            for(let location of this.locationsHist){
+                    this.maps.addHistoryMarker(location.latitude, location.longitude);
+                }
+        }, (error) => {
+            console.log("ERROR: ", error);
+        });
   }
 
   goToTrackingPage(){

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { StationMapPage } from '../station-map/station-map';
-import { StationListPage } from '../station-list/station-list';
 
 import { NavController } from 'ionic-angular';
 import { BookingPage } from '../booking/booking';
 import { ChatsPage } from '../chats/chats';
-import { MapsPage } from '../maps/maps';
 import { MeteoPage } from '../meteo/meteo';
 
 @Component({

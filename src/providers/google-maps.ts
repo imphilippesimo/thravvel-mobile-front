@@ -101,6 +101,11 @@ export class GoogleMaps {
  
         this.center = position;
         let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        // add the user's position marker
+                    var markerPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+
+                    
  
         let mapOptions = {
           center: latLng,
@@ -109,12 +114,22 @@ export class GoogleMaps {
         }
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
+        var marker = new google.maps.Marker({
+                        map: this.map,
+                        animation: google.maps.Animation.DROP,
+                        position: markerPos,
+                        icon: 'assets/img/yellow.png'
+                    })
+                    var infoWindowContent = '<h3>' + 'Je suis ici' + '</h3>'
+
+                    this.addInfoWindow(marker, infoWindowContent)
+                     this.markers.push(marker);
         resolve(position);
         return position;
  
       });
     });
- 
+
   }
  
   disableMap(): void {
@@ -163,6 +178,20 @@ export class GoogleMaps {
       this.disableMap();
  
     }, false);
+ 
+  }
+ 
+  addHistoryMarker(lat: number, lng: number): void {
+ 
+    let latLng = new google.maps.LatLng(lat, lng);
+ 
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: latLng,
+      icon: 'assets/img/yellow.png'
+    });
+    this.markers.push(marker);  
  
   }
  
