@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
+import { User } from '../entities/chat/User'
 
 /*
  Generated class for the Authservice provider.
@@ -11,17 +12,6 @@ import 'rxjs/add/observable/throw';
  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
  for more info on providers and Angular 2 DI.
  */
-export class User {
-  phoneNumber: string;
-  gender: String;
-
-  constructor(phoneNumber: string, gender: string) {
-    this.phoneNumber = phoneNumber;
-    this.gender = gender;
-
-  }
-}
-
 @Injectable()
 export class AuthService {
   currentUser: User;
@@ -53,6 +43,21 @@ export class AuthService {
         .catch(this.handleError);
 
     }
+  }
+
+
+  /**
+   * Set the current authenticated User
+   */
+  public setCurrentUser(aUser: User) {
+    this.currentUser = aUser;
+  }
+
+  /**
+   * get the current authenticated user
+   */
+  public getCurrentUser(): User {
+    return this.currentUser;
   }
 
   public signup(credentials): Observable<any> {

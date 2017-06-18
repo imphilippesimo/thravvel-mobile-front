@@ -1,11 +1,14 @@
-import {Component} from '@angular/core';
-import {NavController, AlertController, LoadingController, PopoverController, Loading} from 'ionic-angular';
-import {AuthService, User} from '../../providers/auth-service';
-import {RegisterPage} from '../register/register';
-import {HomePage} from '../home/home';
+import { Component } from '@angular/core';
+import { NavController, AlertController, LoadingController, PopoverController, Loading } from 'ionic-angular';
+import { AuthService } from '../../providers/auth-service';
+import { RegisterPage } from '../register/register';
+import { HomePage } from '../home/home';
+import { User } from '../../entities/chat/User'
 
-import {ConfirmationPage} from '../confirmation/confirmation';
+import { ConfirmationPage } from '../confirmation/confirmation';
 //import { ValidationResult } from '../shared/interfaces';
+
+let AVATAR_URL = 'http://avatar.3sd.me/80';
 
 
 @Component({
@@ -14,7 +17,7 @@ import {ConfirmationPage} from '../confirmation/confirmation';
 })
 export class LoginPage {
   loading: Loading;
-  loginCredentials = {phoneNumber: '', password: ''};
+  loginCredentials = { phoneNumber: '', password: '' };
   //result: boolean;
 
 
@@ -90,31 +93,40 @@ export class LoginPage {
     alert.present(prompt);
   }
 
+  private getRandomUsername(): string {
+    return 'User-' + (Math.floor(Math.random() * (10000 - 0)) + 1);
+  }
+
   checkUserConfirmed(userData) {
     //let result: boolean = false;
     this.auth.isUserConfirmed().subscribe(
       retrievedData => {
 
-          //if no errors from the server
-          if (retrievedData.success) {
-            //if the confirmed flag is true
-            if (!retrievedData.payload) {
-              console.log('user account not yet confirmed');
-              this.presentConfirmationPopover();
-              //this.result = true;
-              //console.log("i" + result);
-            } else {
-              //this.result = false;
-              console.log('Already confirmed user account!!!!');
-              //set the currentUser
-              this.auth.currentUser = new User(userData.phoneNumber, userData.gender);
-              //add the current user to the list of authenticated users
-              //this.auth.users.push(this.auth.currentUser);
-              this.nav.setRoot(HomePage);
-            }
+        //if no errors from the server
+        if (retrievedData.success) {
+          //if the confirmed flag is true
+          if (!retrievedData.payload) {
+            console.log('user account not yet confirmed');
+            this.presentConfirmationPopover();
+            //this.result = true;
+            //console.log("i" + result);
           } else {
-            this.showError(retrievedData.message);
+            //this.result = false;
+            console.log('Already confirmed user account!!!!');
+            /**
+             * Register the current authenticated user, (using a fake random username cause 
+             * its not yet possible to record the username during user registration), 
+             * TODO: update user registration view to record the username and 
+             * use userData.userName instead of this.getRandomUsername()
+             */
+            this.auth.setCurrentUser(new User(this.getRandomUsername(), userData.phoneNumber, userData.gender, AVATAR_URL));
+            //add the current user to the list of authenticated users
+            //this.auth.users.push(this.auth.currentUser);
+            this.nav.setRoot(HomePage);
           }
+        } else {
+          this.showError(retrievedData.message);
+        }
       },
       error => {
         this.showError(error);

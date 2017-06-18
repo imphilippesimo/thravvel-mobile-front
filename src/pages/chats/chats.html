@@ -6,14 +6,44 @@
 -->
 <!--<ion-header>-->
 
-  <!--<ion-navbar>-->
-    <!--<ion-title>chats</ion-title>-->
-  <!--</ion-navbar>-->
+<!--<ion-navbar>-->
+<!--<ion-title>chats</ion-title>-->
+<!--</ion-navbar>-->
 
 <!--</ion-header>-->
 
 
-<ion-content padding>
+<!--<ion-content padding>
   <h1>Chats</h1>
 
+</ion-content>-->
+
+<ion-content>
+
+  <div *ngFor="let message of messages" [ngClass]="{'messages':true, 'other': message.userName != user.userName}">
+
+
+    <div class="message">
+      <div class="chat-bubble">
+        <span class="chat-user-name">{{message.userName}}</span><br/>
+        <span>{{ message.message }}</span>
+        <span class="time-stamp">{{message.time | date:"h:mma"}}</span>
+      </div>
+
+    </div>
+  </div>
+
 </ion-content>
+
+<ion-footer keyboard-attach>
+  <form #chatForm="ngForm">
+    <ion-item>
+      <ion-input type="text" name="message" placeholder="Ecrire le message" [(ngModel)]="messageContent" required></ion-input>
+
+      <button item-right ion-button icon-only clear [disabled]="!chatForm.form.valid" (click)="sendMessage()">
+      <ion-icon name="send" color="navbarColor"></ion-icon>
+    </button>
+    </ion-item>
+  </form>
+
+</ion-footer>
