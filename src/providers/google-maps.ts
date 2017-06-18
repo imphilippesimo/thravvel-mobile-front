@@ -118,7 +118,7 @@ export class GoogleMaps {
                         map: this.map,
                         animation: google.maps.Animation.DROP,
                         position: markerPos,
-                        icon: 'assets/img/yellow.png'
+                        icon: 'assets/img/pink.png'
                     })
                     var infoWindowContent = '<h3>' + 'Je suis ici' + '</h3>'
 
