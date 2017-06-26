@@ -5,7 +5,7 @@ import { GoogleMaps } from '../../providers/google-maps';
 import {Database} from "../../providers/database";
 import { LocationTracker } from '../../providers/location-tracker';
 
-import { TrackingPage } from '../tracking/tracking';
+//import { TrackingPage } from '../tracking/tracking';
 
 /*
   Generated class for the StationMap page.
@@ -13,6 +13,17 @@ import { TrackingPage } from '../tracking/tracking';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+
+export class Point {
+  lat: number;
+  lng: number;
+
+  constructor(latitude: number, longitude: number) {
+    this.lat = latitude;
+    this.lng = longitude;
+  }
+}
+
 @Component({
   selector: 'page-station-map',
   templateUrl: 'station-map.html',
@@ -41,16 +52,24 @@ export class StationMapPage {
     this.database.getAllLocations().then((result) => {
             this.locationsHist =  result;
             console.log("locations",this.locationsHist);
+            
+            var locationsRoute = [];
+            var point : Point;
             for(let location of this.locationsHist){
+                    console.log("HELLLOOOOOOOOOOOOO");
                     this.maps.addHistoryMarker(location.latitude, location.longitude);
+                    point = {lat:location.latitude, lng:location.latitude};
+                    locationsRoute.push(point);
                 }
+                console.log("for route", locationsRoute);
+             this.maps.drawRoute(locationsRoute);
         }, (error) => {
             console.log("ERROR: ", error);
         });
   }
 
   goToTrackingPage(){
-      this.navCtrl.push(TrackingPage);
+     // this.navCtrl.push(TrackingPage);
   }
 
   ionViewDidLoad(){

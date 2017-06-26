@@ -97,7 +97,7 @@ export class GoogleMaps {
  
     return new Promise((resolve) => {
  
-      Geolocation.getCurrentPosition().then((position) => {
+      Geolocation.watchPosition().subscribe((position) => {
  
         this.center = position;
         let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -210,11 +210,6 @@ export class GoogleMaps {
  
   }
 
-  toto(){
-    console.log("TOOOOOOTTTTTOOOOOOOO 11111111");
-  }
-
-
   addInfoWindow(marker, content){
  
     let infoWindow = new google.maps.InfoWindow({
@@ -232,5 +227,25 @@ export class GoogleMaps {
     });
  
   }
+
+  drawRoute(locations){
+        var flightPath = new google.maps.Polyline({
+          path: locations,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        flightPath.setMap(this.map);
+  }
+
+  addLine(flightPath) {
+        flightPath.setMap(this.map);
+  }
+
+removeLine(flightPath) {
+        flightPath.setMap(null);
+}
+
  
 }
